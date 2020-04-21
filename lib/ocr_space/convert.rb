@@ -1,13 +1,21 @@
 require 'ocr_space/file_post'
 module OcrSpace
     module Convert
-        def convert(apikey: @api_key, language: 'eng', isOverlayRequired: false, file: nil, url: nil)
+        def convert(apikey: @api_key, language: 'eng', isOverlayRequired: false, file: nil, url: nil, file_type: nil, OCREngine: 1, isTable: false,detectOrientation: false, isCreateSearchablePdf: false,isSearchablePdfHideTextLayer: false, scale: false)
+
           if file
             @files = File.new(file)
             @data = OcrSpace::FilePost.post('/parse/image',
                                             body: { apikey: apikey,
                                                     language: language,
                                                     isOverlayRequired: isOverlayRequired,
+                                                    file_type: file_type,
+                                                    OCREngine: OCREngine,
+                                                    isTable: isTable,
+                                                    detectOrientation: detectOrientation,
+                                                    isCreateSearchablePdf: isCreateSearchablePdf,
+                                                    isSearchablePdfHideTextLayer: isSearchablePdfHideTextLayer,
+                                                    scale: scale,                                                    
                                                     file: @files })
             @data = @data.parsed_response['ParsedResults']
           elsif url
@@ -15,6 +23,13 @@ module OcrSpace
                                   body: { apikey: apikey,
                                           language: language,
                                           isOverlayRequired: isOverlayRequired,
+                                          file_type: file_type,
+					                      OCREngine: OCREngine,
+					                      isTable: isTable,
+					                      detectOrientation: detectOrientation,
+					                      isCreateSearchablePdf: isCreateSearchablePdf,
+					                      isSearchablePdfHideTextLayer: isSearchablePdfHideTextLayer,
+					                      scale: scale,                                                    
                                           url: url })
             @data = @data.parsed_response['ParsedResults']
           else
@@ -29,6 +44,10 @@ module OcrSpace
                                             body: { apikey: apikey,
                                                     language: language,
                                                     isOverlayRequired: isOverlayRequired,
+                                                    file_type: file_type,
+	                                                OCREngine: OCREngine,
+	                                                detectOrientation: detectOrientation,
+	                                                scale: scale,                                                    
                                                     file: @files })
             @data = @data.parsed_response['ParsedResults'][0]["ParsedText"].gsub(/\r|\n/, "")
           elsif url
@@ -36,6 +55,10 @@ module OcrSpace
                                   body: { apikey: apikey,
                                           language: language,
                                           isOverlayRequired: isOverlayRequired,
+                                          file_type: file_type,
+	                                      OCREngine: OCREngine,
+	                                      detectOrientation: detectOrientation,
+	                                      scale: scale,                                                    
                                           url: url })
             @data = @data.parsed_response['ParsedResults'][0]["ParsedText"].gsub(/\r|\n/, "")
           else
