@@ -1,7 +1,7 @@
 require 'ocr_space/file_post'
 module OcrSpace
     module Convert
-        def convert(apikey: @api_key, language: 'eng', isOverlayRequired: false, file: nil, url: nil, file_type: nil, OCREngine: 1, isTable: false,detectOrientation: false, isCreateSearchablePdf: false,isSearchablePdfHideTextLayer: false, scale: false)
+        def convert(apikey: @api_key, language: 'eng', isOverlayRequired: false, file: nil, url: nil, file_type: nil, oCREngine: 1, isTable: false,detectOrientation: false, isCreateSearchablePdf: false,isSearchablePdfHideTextLayer: false, scale: false)
 
           if file
             @files = File.new(file)
@@ -10,7 +10,7 @@ module OcrSpace
                                                     language: language,
                                                     isOverlayRequired: isOverlayRequired,
                                                     file_type: file_type,
-                                                    OCREngine: OCREngine,
+                                                    OCREngine: oCREngine,
                                                     isTable: isTable,
                                                     detectOrientation: detectOrientation,
                                                     isCreateSearchablePdf: isCreateSearchablePdf,
@@ -24,7 +24,7 @@ module OcrSpace
                                           language: language,
                                           isOverlayRequired: isOverlayRequired,
                                           file_type: file_type,
-					                      OCREngine: OCREngine,
+					                      OCREngine: oCREngine,
 					                      isTable: isTable,
 					                      detectOrientation: detectOrientation,
 					                      isCreateSearchablePdf: isCreateSearchablePdf,
